@@ -1,57 +1,26 @@
-
-<script>
+<script setup lang="ts">
 // import { mapActions, mapState } from 'vuex';
-import { defineStore } from 'pinia'
-import Modal from '@/components/modal';
+import { storeToRefs } from 'pinia'
+// import Modal from '@/components/modal';
+import { useHeroesStore } from "@/stores/heroes";
 
-export default {
-  name: 'Heroes',
-  data() {
-    return {
-      heroToDelete: null,
-      message: '',
-      showModal: false,
-    };
-  },
-  components: {
-    Modal,
-  },
-  async created() {
-    await this.loadHeroes();
-  },
-  methods: {
-    // ...mapActions(['getHeroesAction', 'deleteHeroAction']),
-    askToDelete(hero) {
-      this.heroToDelete = hero;
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
-    },
-    async deleteHero() {
-      this.closeModal();
-      if (this.heroToDelete) {
-        await this.deleteHeroAction(this.heroToDelete);
-      }
-      await this.loadHeroes();
-    },
-    async loadHeroes() {
-      this.message = 'getting the heroes, please be patient';
-      await this.getHeroesAction();
-      this.message = '';
-    },
-  },
-  computed: {
-    ...mapState(['heroes']),
-    modalMessage() {
-      const name =
-        this.heroToDelete && this.heroToDelete.fullName
-          ? this.heroToDelete.fullName
-          : '';
-      return `Would you like to delete ${name} ?`;
-    },
-  },
-};
+const store = storeToRefs(useHeroesStore());
+
+const {
+  heroes,
+  villains,
+  heroToDelete,
+  message,
+  showModal,
+  modalMessage,
+  askToDelete,
+  deleteHeroAction,
+  closeModal,
+  deleteHero,
+  loadHeroes,
+  getHeroesAction,
+} = store;
+
 </script>
 
 <template>
@@ -61,10 +30,10 @@ export default {
         <div class="section content-title-group">
           <h2 class="title">Heroes</h2>
           <button class="button refresh-button" @click="loadHeroes()">
-            <i class="fas fa-sync"></i>
+            <i class="fas fa-sync"></i>Load
           </button>
           <router-link tag="button" class="button add-button" :to="{ name: 'hero-detail', params: { id: 0 } }">
-            <i class="fas fa-plus"></i>
+            <i class="fas fa-plus"></i>Add
           </router-link>
           <ul>
             <li v-for="hero in heroes" :key="hero.id">
@@ -95,7 +64,7 @@ export default {
         <div class="notification is-info" v-show="message">{{ message }}</div>
       </div>
     </div>
-    <Modal :message="modalMessage" :isOpen="showModal" @handleNo="closeModal" @handleYes="deleteHero">
-    </Modal>
+    <!-- <Modal :message="modalMessage" :isOpen="showModal" @handleNo="closeModal" @handleYes="deleteHero">
+    </Modal> -->
   </div>
 </template>

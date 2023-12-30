@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CounterView from "../views/CounterView.vue";
-// import HeroesView from "../views/HeroesView.vue";
 
 
 Vue.use(VueRouter);
@@ -21,11 +20,6 @@ const router = new VueRouter({
       name: "counter",
       component: CounterView,
     },
-    // {
-    //   path: "/heroes",
-    //   name: "heroes",
-    //   component: HeroesView,
-    // },
     {
       path: "/about",
       name: "about",
