@@ -131,8 +131,12 @@ header {
   button.button {
     border: 0;
     color: #999;
+    margin: 8px;
     &:hover {
       color: $link;
+    }
+    &:first {
+      margin-inline-end: auto;
     }
   }
 }

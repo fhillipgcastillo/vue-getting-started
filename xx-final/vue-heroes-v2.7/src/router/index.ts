@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CounterView from "../views/CounterView.vue";
+import HeroDetailView from "../views/HeroDetailView.vue";
 
 
 Vue.use(VueRouter);
@@ -14,6 +15,16 @@ const router = new VueRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/hero-detail/:heroId",
+      name: "hero-detail",
+      component: HeroDetailView,
+    },
+    {
+      path: "/hero-detail",
+      name: "add-hero",
+      component: HeroDetailView,
     },
     {
       path: "/counter",

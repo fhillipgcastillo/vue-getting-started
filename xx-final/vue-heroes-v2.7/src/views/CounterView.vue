@@ -3,8 +3,9 @@
 import { useCounterStore } from '@/stores/counter';
 // import { useHeroesStore } from '@/stores/heroes';
 import { storeToRefs } from 'pinia';
-
-const { counter, doubleCount, increment }  = storeToRefs(useCounterStore());
+const store = useCounterStore();
+const { counter, doubleCount }  = storeToRefs(store);
+const { increment }  = store;
 // const { counter, increment } = store;
 
 </script>
