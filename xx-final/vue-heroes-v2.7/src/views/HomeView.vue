@@ -3,5 +3,5 @@ import Heroes from "@/components/Heroes.vue";
 </script>
 
 <template>
-      <Heroes />
+  <Heroes />
 </template>

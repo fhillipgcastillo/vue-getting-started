@@ -68,3 +68,15 @@ const {
     </Modal> -->
   </div>
 </template>
+
+<style scoped>
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-top: 2rem;
+}
+
+</style>
