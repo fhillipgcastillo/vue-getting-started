@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CounterView from "../views/CounterView.vue";
 import HeroDetailView from "../views/HeroDetailView.vue";
-
+import VillainsView from "../views/VillainsView.vue";
 
 Vue.use(VueRouter);
 
@@ -25,6 +25,11 @@ const router = new VueRouter({
       path: "/hero-detail",
       name: "add-hero",
       component: HeroDetailView,
+    },
+    {
+      path: "/villains",
+      name: "villains",
+      component: VillainsView,
     },
     {
       path: "/counter",
