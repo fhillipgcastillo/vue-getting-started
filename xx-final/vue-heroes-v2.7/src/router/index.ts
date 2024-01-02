@@ -40,11 +40,6 @@ const router = new VueRouter({
       component: () => import("../views/VillainDetailsView.vue"),
     },
     {
-      path: "/counter",
-      name: "counter",
-      component: () => import("../views/CounterView.vue"),
-    },
-    {
       path: "/about",
       name: "about",
       // route level code-splitting
