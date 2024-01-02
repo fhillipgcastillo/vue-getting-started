@@ -1,14 +1,7 @@
 import { defineStore } from "pinia";
 import { dataService } from "@/shared/data.service";
+import type { Villain } from "@/shared/types";
 
-
-export interface Villain {
-    id: string;
-    fullName: string;
-    firstName: string;
-    lastName: string;
-    description: string;
-};
 
 interface State {
     villains: Villain[]

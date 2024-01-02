@@ -1,42 +1,48 @@
-<script>
-// import Modal from '@/components/modal';
-import { storeToRefs, mapActions, mapState } from 'pinia';
+<script lang="ts">
+import Modal from '@/components/modal.vue';
+import { mapActions, mapState } from 'pinia';
 import { useVillainsStore } from "@/stores/villains";
-// import type { Villain } from "@/stores/villains";
-import Vue from "vue"
+
+import type { Villain } from '@/shared/types';
+
+interface DataState {
+  villainToDelete: Villain | null;
+  message: string;
+  showModal: boolean;
+}
 
 export default /* new Vue(*/{
   name: 'Villains',
-  data: ()  => {
+  data: ():DataState  => {
     return {
       villainToDelete: null,
       message: '',
       showModal: false,
     }/* as dataType*/;
   },
-  // components: {
-  //   Modal,
-  // },
+  components: {
+    Modal,
+  },
   async mounted() {
     await this.loadVillains();
   },
   methods: {
     ...mapActions(useVillainsStore, ["deleteVillainAction", "getVillainsAction"]),
-    askToDelete (villain/*: Villain*/) {
+    askToDelete(villain: Villain) {
       this.villainToDelete = villain;
       this.showModal = true;
     },
-    closeModal: function()  {
+    closeModal: function () {
       this.showModal = false;
     },
-    deleteVillain: async function() {
+    deleteVillain: async function () {
       this.closeModal();
       if (this.villainToDelete) {
-        await deleteVillainAction(this.villainToDelete);
+        await this.deleteVillainAction(this.villainToDelete);
       }
       await this.loadVillains();
     },
-    loadVillains: async function() {
+    loadVillains: async function () {
       this.message = 'getting the villains, please be patient';
       await this.getVillainsAction();
       this.message = '';
@@ -51,7 +57,7 @@ export default /* new Vue(*/{
           : '';
       return `Would you like to delete ${name} ?`;
     },
-    
+
   },
 }/*)*/;
 </script>
@@ -74,7 +80,7 @@ export default /* new Vue(*/{
               <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    <div  class="name">
+                    <div class="name">
                       {{ villain.firstName }} {{ villain.lastName }}
                     </div>
                     <div class="description">{{ villain.description }}</div>
@@ -98,8 +104,8 @@ export default /* new Vue(*/{
         <div class="notification is-info" v-show="message">{{ message }}</div>
       </div>
     </div>
-    <!-- <Modal :message="modalMessage" :isOpen="showModal" @handleNo="closeModal" @handleYes="deleteVillain">
-    </Modal> -->
+    <Modal :message="modalMessage" :isOpen="showModal" @handleNo="closeModal" @handleYes="deleteVillain">
+    </Modal>
   </div>
 </template>
 
