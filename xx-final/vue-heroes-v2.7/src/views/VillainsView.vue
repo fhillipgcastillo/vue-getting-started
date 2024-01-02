@@ -13,7 +13,7 @@ interface DataState {
 
 export default /* new Vue(*/{
   name: 'Villains',
-  data: ():DataState  => {
+  data: (): DataState => {
     return {
       villainToDelete: null,
       message: '',
@@ -72,11 +72,16 @@ export default /* new Vue(*/{
           <button class="button refresh-button" @click="loadVillains()">
             <i class="fas fa-sync">Sync</i>
           </button>
-          <router-link tag="button" class="button add-button" :to="{ name: 'villain-detail', params: { id: 0 } }">
+          <!-- <router-link tag="button" class="button add-button" :to="{ name: 'add-villain' }">
             <i class="fas fa-plus">Add</i>
+          </router-link> -->
+          <router-link class="button add-button" to="add-villain" custom v-slot="{ navigate }">
+            <button @click="navigate" @keypress.enter="navigate" role="link">
+              <i class="fas fa-plus">Add</i>
+            </button>
           </router-link>
           <ul class="columns">
-            <li v-for="villain in villains" :key="villain.id" class="column is-3">
+            <li v-for="villain in  villains " :key="villain.id" class="column is-3">
               <div class="card">
                 <div class="card-content">
                   <div class="content">
@@ -111,11 +116,11 @@ export default /* new Vue(*/{
 
 <style scoped>
 ul {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 16px;
-    margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 2rem;
 }
 </style>

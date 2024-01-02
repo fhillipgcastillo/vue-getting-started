@@ -9,12 +9,6 @@ interface DataState {
 
 export default {
   name: 'VillainDetail',
-  props: {
-    id: {
-      type: Number,
-      default: 0,
-    },
-  },
   data(): DataState {
     return {
       villain: undefined,

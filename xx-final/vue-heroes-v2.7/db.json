@@ -44,7 +44,8 @@
       "id": 20,
       "firstName": "Kaylee",
       "lastName": "Frye",
-      "description": "No power in the 'verse can stop me."
+      "description": "No power in the 'verse can stop me.",
+      "fullName": "Kaylee Frye"
     },
     {
       "id": 30,

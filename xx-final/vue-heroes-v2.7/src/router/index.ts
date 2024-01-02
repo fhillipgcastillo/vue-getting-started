@@ -29,7 +29,10 @@ const router = new VueRouter({
     },
     {
       path: "/villain-detail/:villainId",
-      name: "villain-detail",
+      component: () => import("../views/VillainDetailsView.vue"),
+    },
+    {
+      path: "/add-villain",
       component: () => import("../views/VillainDetailsView.vue"),
     },
     {

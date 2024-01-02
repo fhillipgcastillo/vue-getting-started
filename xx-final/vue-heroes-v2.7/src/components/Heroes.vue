@@ -26,7 +26,6 @@ const {
 
 
 onMounted(function x(){
-    console.log("mounted");
     loadHeroes();
 });
 
