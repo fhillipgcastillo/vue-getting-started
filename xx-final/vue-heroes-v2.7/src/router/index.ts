@@ -14,7 +14,7 @@ const router = new VueRouter({
     {
       path: "/heroes",
       name: "heroes",
-      component: () => import("../views/HomeView.vue"),
+      component: () => import("../views/HeroesView.vue"),
     },
     {
       path: "/hero-detail/:heroId",
