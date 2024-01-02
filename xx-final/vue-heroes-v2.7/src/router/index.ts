@@ -48,6 +48,10 @@ const router = new VueRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue"),
     },
+    {
+      path: '*',
+      component: () => import("../views/page-not-found.vue"),
+    },
   ],
 });
 
