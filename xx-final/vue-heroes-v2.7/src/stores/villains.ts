@@ -1,40 +1,39 @@
-import { ref } from "vue";
 import { defineStore } from "pinia";
 import { dataService } from "@/shared/data.service";
 
 
-// export interface Villain {
-//     id: string;
-//     fullName: string;
-//     firstName: string;
-//     lastName: string;
-//     description: string;
-// };
+export interface Villain {
+    id: string;
+    fullName: string;
+    firstName: string;
+    lastName: string;
+    description: string;
+};
 
-// interface State {
-//     villains: Villain[]
-// }
+interface State {
+    villains: Villain[]
+}
 export const useVillainsStore = defineStore('villains', {
-    state: () => ({
+    state: (): State => ({
         villains: [],
     }),
     getters: {
     },
     actions: {
         // actions
-        async deleteVillainAction(villain) {
+        async deleteVillainAction(villain: Villain) {
             const deletedVillainId = await dataService.deleteVillain(villain);
             this.deleteVillainMutation(deletedVillainId);
         },
         async getVillainsAction() {
-            const villains = await dataService.getVillains();
+            const villains: Villain[] = await dataService.getVillains();
             this.getVillainsMutation(villains);
         },
         // mutations
-        addVillainMutation (addedVillain) {
+        addVillainMutation (addedVillain: Villain) {
             this.$state.villains.unshift(addedVillain); // mutable addition
         },
-        updateVillainMutation (villain) {
+        updateVillainMutation (villain: Villain) {
             const index = this.$state.villains.findIndex((h) => h.id === villain.id);
             this.$state.villains.splice(index, 1, villain);
             this.$state.villains = [...this.$state.villains];
@@ -42,10 +41,10 @@ export const useVillainsStore = defineStore('villains', {
                 ...this.$state,
             }
         },
-        deleteVillainMutation(villainId) {
+        deleteVillainMutation(villainId: string) {
             this.villains = [...this.$state.villains.filter(p => p.id !== villainId)];
         },
-        getVillainsMutation(villains) {
+        getVillainsMutation(villains: Villain[]) {
             this.villains = villains;
         },
 
