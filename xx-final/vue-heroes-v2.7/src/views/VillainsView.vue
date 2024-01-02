@@ -66,7 +66,7 @@ export default /* new Vue(*/{
 <template>
   <div class="content-container">
     <div class="columns">
-      <div class="column is-8">
+      <div class="column">
         <div class="section content-title-group">
           <h2 class="title">Villains</h2>
           <button class="button refresh-button" @click="loadVillains()">
@@ -75,8 +75,8 @@ export default /* new Vue(*/{
           <router-link tag="button" class="button add-button" :to="{ name: 'villain-detail', params: { id: 0 } }">
             <i class="fas fa-plus">Add</i>
           </router-link>
-          <ul>
-            <li v-for="villain in villains" :key="villain.id">
+          <ul class="columns">
+            <li v-for="villain in villains" :key="villain.id" class="column is-3">
               <div class="card">
                 <div class="card-content">
                   <div class="content">
@@ -109,3 +109,13 @@ export default /* new Vue(*/{
   </div>
 </template>
 
+<style scoped>
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-top: 2rem;
+}
+</style>

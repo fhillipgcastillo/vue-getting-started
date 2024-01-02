@@ -6,7 +6,7 @@ import type { Hero, Villain } from "@/shared/types";
 interface HeroesStore {
     heroes: Hero[],
     villains: Villain[],
-    heroToDelete: any,
+    heroToDelete?: Hero,
     message: string,
     showModal: boolean,
 };
@@ -15,7 +15,7 @@ export const useHeroesStore = defineStore('heroes', {
         return {
             heroes: [],
             villains: [],
-            heroToDelete: null,
+            heroToDelete: undefined,
             message: '',
             showModal: false,
         };
@@ -23,13 +23,17 @@ export const useHeroesStore = defineStore('heroes', {
     getters: {
         modalMessage(state): string {
             const name =
-                state.heroToDelete && state.heroToDelete.fullName
-                    ? state.heroToDelete.fullName
+                state.heroToDelete && state.heroToDelete?.fullName
+                    ? state.heroToDelete?.fullName
                     : '';
             return `Would you like to delete ${name} ?`;
         },
     },
     actions: {
+        async getHeroById(heroId: string) {
+            const hero = await dataService.getHero(heroId)
+            return hero as Hero;
+        },
         askToDelete(hero: any) {
             this.heroToDelete = hero;
             this.showModal = true;
@@ -57,13 +61,22 @@ export const useHeroesStore = defineStore('heroes', {
             const heroes: Hero[] = await dataService.getHeroes();
             this.getHeroesMutation(heroes);
         },
-
+        async updateHeroAction(hero: Hero) {
+            const updatedHero: Hero = await dataService.updateHero(hero);
+            this.updateHeroMutation(updatedHero);
+        },
+        async addHeroAction(hero: Hero) {
+            const addedHero = await dataService.addHero(hero);
+            // commit(ADD_HERO, addedHero);
+        },
         // mutating the state
         getHeroesMutation(heroes: Hero[]) {
             this.heroes = heroes;
         },
-        deleteHeroMutation(heroId: number) {
+        deleteHeroMutation(heroId: string) {
             this.heroes = [...this.heroes.filter(p => p.id !== heroId)];
-        }
+        },
+        async updateHeroMutation(hero: Hero) {
+        },
     }
 });

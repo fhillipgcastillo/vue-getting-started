@@ -1,124 +1,71 @@
 
-<script setup lang="ts">
-import { useRoute } from 'vue-router/composables';
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
-import { storeToRefs } from 'pinia'
+<script lang="ts">
+import { mapState, mapActions } from 'pinia'
 import { useHeroesStore } from "@/stores/heroes";
 import type { Hero } from '@/shared/types';
 
-const store = useHeroesStore();
-const route = useRoute();
-const heroId = route.params?.heroId;
 
-const {
-  heroes,
-  villains,
-  heroToDelete,
-  message,
-  showModal,
-  modalMessage,
-} = storeToRefs(store);
+interface DataState {
+  hero?: Hero;
+};
 
-const {
-  askToDelete,
-  deleteHeroAction,
-  closeModal,
-  deleteHero,
-  loadHeroes,
-  getHeroesAction,
-
-  getHeroById,
-} = store;
-
-const hero = ref<Hero | null>(null);
-const isAddMode = computed(() => {
-  return !!heroId;
-});
-const title = computed(() => {
-  return `${isAddMode ? 'Add' : 'Edit'} Hero`;
-});
-
-onBeforeMount(function(){
-  hero.value = {
-      id: undefined,
-      firstName: '',
-      lastName: '',
-      description: '',
-      capeCounter: 0,
-      originDate: "",
-
+export default {
+  name: 'HeroDetail',
+  data(): DataState {
+    return {
+      hero: undefined,
     };
-});
-onMounted(async function () {
-  if (heroId) {
-    const result = await getHeroById(heroId);
-    console.log("params", result);
-    hero.value = result;
-  }
-});
-// export const HeroDetail = {
-//   name: 'HeroDetail',
-//   props: {
-//     heroId: {
-//       type: Number,
-//       default: 0,
-//     },
-//   },
-//   data() {
-//     return {
-//       hero: {},
-//     };
-//   },
-//   created() {
-// if (this.isAddMode) {
-//   this.hero = {
-//     id: undefined,
-//     firstName: '',
-//     lastName: '',
-//     description: '',
-//   };
-// } else {
-//   this.hero = { ...this.getHeroById(this.id) };
-// }
-// },
-// computed: {
-// ...mapGetters(['getHeroById']),
-//   isAddMode() {
-//     return !this.id;
-//   },
-//   title() {
-//     return `${this.isAddMode ? 'Add' : 'Edit'} Hero`;
-//   },
-// },
-// methods: {
-// ...mapActions(['updateHeroAction', 'addHeroAction']),
-// cancelHero() {
-//   this.$router.push({ name: 'heroes' });
-// },
-// async saveHero() {
-// this.hero.id
-//   ? await this.updateHeroAction(this.hero)
-//   : await this.addHeroAction(this.hero);
-// this.$router.push({ name: 'heroes' });
-//     },
-//   },
-// };
+  },
+  async mounted() {
+    if (this.isAddMode) {
+      this.hero = {
+        firstName: '',
+        lastName: '',
+        description: '',
+      } as Hero;
+    } else {
+      this.hero = await this.getHeroById(this.heroId);
+    }
+  },
+  computed: {
+    isAddMode() {
+      return !this.heroId ;
+    },
+    title() {
+      return `${this.isAddMode ? 'Add' : 'Edit'} Hero`;
+    },
+    heroId():string {
+      return this.$route.params?.heroId;
+    },
+  },
+  methods: {
+    ...mapActions(useHeroesStore, ['updateHeroAction', 'addHeroAction', "getHeroById"]),
+    cancelHero() {
+      this.$router.push({ name: 'heroes' });
+    },
+    async saveHero() {
+      !this.isAddMode
+        ? await this.updateHeroAction(this.hero)
+        : await this.addHeroAction(this.hero);
+      this.$router.push({ name: 'heroes' });
+    },
+  },
+};
 
 </script>
 
 <template>
-  <div>
-    <div class="section content-title-group">
+  <div class="section content-title-group">
       <h2 class="title">{{ title }}</h2>
       <div class="card">
         <header class="card-header">
-          <p class="card-header-title">{{ hero.fullName }}</p>
+          <p class="card-header-title">{{ hero?.fullName }}</p>
         </header>
-        <div class="card-content">
+        <div class="card-content" v-if="hero">
           <div class="content">
             <div class="field">
               <label class="label" for="id">id</label>
-              <label class="input" name="id" readonly>{{ hero.id }}</label>
+              <label class="input" name="id" readonly>{{ hero?.id }}</label>
             </div>
             <div class="field">
               <label class="label" for="firstName">first name</label>
@@ -146,6 +93,5 @@ onMounted(async function () {
         </footer>
       </div>
     </div>
-  </div>
 </template>
 

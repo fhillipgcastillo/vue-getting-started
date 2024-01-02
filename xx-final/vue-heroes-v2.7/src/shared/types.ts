@@ -1,5 +1,5 @@
 export interface Hero {
-    id: number | undefined;
+    id: string | undefined;
     fullName?: string;
     firstName: string;
     lastName: string;
@@ -9,7 +9,7 @@ export interface Hero {
 };
 
 export interface Villain {
-    id: number;
+    id: string | undefined;
     firstName: string;
     lastName: string;
     description: string;

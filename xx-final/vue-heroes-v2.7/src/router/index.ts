@@ -1,9 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import CounterView from "../views/CounterView.vue";
-import HeroDetailView from "../views/HeroDetailView.vue";
-import VillainsView from "../views/VillainsView.vue";
 
 Vue.use(VueRouter);
 
@@ -13,28 +9,28 @@ const router = new VueRouter({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      name: "heroes",
+      component: () => import("../views/HomeView.vue"),
     },
     {
       path: "/hero-detail/:heroId",
       name: "hero-detail",
-      component: HeroDetailView,
+      component: () => import("../views/HeroDetailView.vue"),
     },
     {
       path: "/hero-detail",
       name: "add-hero",
-      component: HeroDetailView,
+      component: () => import("../views/HeroDetailView.vue"),
     },
     {
       path: "/villains",
       name: "villains",
-      component: VillainsView,
+      component: () => import("../views/VillainsView.vue"),
     },
     {
       path: "/counter",
       name: "counter",
-      component: CounterView,
+      component: () => import("../views/CounterView.vue"),
     },
     {
       path: "/about",

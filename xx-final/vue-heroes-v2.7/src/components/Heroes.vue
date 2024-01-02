@@ -44,8 +44,8 @@ onMounted(function x(){
                     <router-link tag="button" class="button add-button" :to="{ path: '/hero-detail', params: { heroId: 0 } }">
                         <i class="fas fa-plus"></i>Add
                     </router-link>
-                    <ul>
-                        <li v-for="hero in heroes" :key="hero.id">
+                    <ul class="columns">
+                        <li class="column is-3" v-for="hero in heroes" :key="hero.id">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="content">
