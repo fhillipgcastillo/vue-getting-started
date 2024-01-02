@@ -70,11 +70,8 @@ export default /* new Vue(*/{
         <div class="section content-title-group">
           <h2 class="title">Villains</h2>
           <button class="button refresh-button" @click="loadVillains()">
-            <i class="fas fa-sync">Sync</i>
+            <i class="fas fa-sync">Refresh</i>
           </button>
-          <!-- <router-link tag="button" class="button add-button" :to="{ name: 'add-villain' }">
-            <i class="fas fa-plus">Add</i>
-          </router-link> -->
           <router-link class="button add-button" to="add-villain" custom v-slot="{ navigate }">
             <button @click="navigate" @keypress.enter="navigate" role="link">
               <i class="fas fa-plus">Add</i>

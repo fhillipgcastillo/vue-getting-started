@@ -8,6 +8,9 @@
   font-weight: normal;
 }
 
+.navbar-item.nav-home {
+  gap: 4px;
+}
 a,
 .green {
   text-decoration: none;

@@ -1,87 +1,25 @@
-<script setup lang="ts">
+<script lang="ts">
+import HeaderBar from '@/components/header-bar.vue';
+import NavBar from '@/components/nav-bar.vue';
+
+export default {
+  name: 'App',
+  components: { HeaderBar, NavBar },
+};
 </script>
 
 <template>
   <div id="app">
-    <header>
-      <div class="wrapper">
-        <nav>
-          <router-link to="/">Home</router-link>
-          <router-link to="/villains">Villains</router-link>
-          <router-link to="/counter">Counter</router-link>
-          <router-link to="/about">About</router-link>
-        </nav>
-      </div>
-    </header>
-
-    <router-view />
+    <HeaderBar />
+    <div class="main-section columns">
+      <NavBar />
+      <main class="column">
+        <router-view />
+      </main>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 @import '@/design/index.scss';
-</style>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  /* width: 100%; */
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1.3rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
