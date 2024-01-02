@@ -12,5 +12,6 @@ export interface Villain {
     id: string | undefined;
     firstName: string;
     lastName: string;
+    fullName?: string;
     description: string;
 };

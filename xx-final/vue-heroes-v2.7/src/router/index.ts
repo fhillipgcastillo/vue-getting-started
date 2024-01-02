@@ -28,6 +28,11 @@ const router = new VueRouter({
       component: () => import("../views/VillainsView.vue"),
     },
     {
+      path: "/villain-detail/:villainId",
+      name: "villain-detail",
+      component: () => import("../views/VillainDetailsView.vue"),
+    },
+    {
       path: "/counter",
       name: "counter",
       component: () => import("../views/CounterView.vue"),

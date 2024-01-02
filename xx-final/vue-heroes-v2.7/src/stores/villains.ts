@@ -14,6 +14,10 @@ export const useVillainsStore = defineStore('villains', {
     },
     actions: {
         // actions
+        async getVillainById(villainId: string) {
+            const villain = await dataService.getVillain(villainId)
+            return villain as Villain;
+        },
         async deleteVillainAction(villain: Villain) {
             const deletedVillainId = await dataService.deleteVillain(villain);
             this.deleteVillainMutation(deletedVillainId);
@@ -22,11 +26,19 @@ export const useVillainsStore = defineStore('villains', {
             const villains: Villain[] = await dataService.getVillains();
             this.getVillainsMutation(villains);
         },
+        async updateVillainAction(villain: Villain) {
+            const updatedVillain = await dataService.updateVillain(villain);
+            // commit(UPDATE_VILLAIN, updatedVillain);
+        },
+        async addVillainAction(villain: Villain) {
+            const addedVillain = await dataService.addVillain(villain);
+            // commit(ADD_VILLAIN, addedVillain);
+        },
         // mutations
-        addVillainMutation (addedVillain: Villain) {
+        addVillainMutation(addedVillain: Villain) {
             this.$state.villains.unshift(addedVillain); // mutable addition
         },
-        updateVillainMutation (villain: Villain) {
+        updateVillainMutation(villain: Villain) {
             const index = this.$state.villains.findIndex((h) => h.id === villain.id);
             this.$state.villains.splice(index, 1, villain);
             this.$state.villains = [...this.$state.villains];

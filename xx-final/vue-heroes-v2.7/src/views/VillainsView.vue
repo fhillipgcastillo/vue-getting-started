@@ -92,7 +92,7 @@ export default /* new Vue(*/{
                     <span>Delete</span>
                   </button>
                   <router-link tag="button" class="link card-footer-item"
-                    :to="{ name: 'villain-detail', params: { id: villain.id } }">
+                    :to="{ path: `/villain-detail/${villain.id}`}">
                     <i class="fas fa-check"></i>
                     <span>Select</span>
                   </router-link>
