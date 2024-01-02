@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia'
-// import Modal from '@/components/modal';
+import Modal from '@/components/modal.vue';
 import { useHeroesStore } from "@/stores/heroes";
 
 const store = useHeroesStore();
@@ -24,22 +24,6 @@ const {
     getHeroesAction,
 } = store;
 
-// console.log("states", {
-//     heroes,
-//     villains,
-//     heroToDelete,
-//     message,
-//     showModal,
-//     modalMessage,
-// });
-// console.log("Methods", {
-//     askToDelete,
-//     deleteHeroAction,
-//     closeModal,
-//     deleteHero,
-//     loadHeroes,
-//     getHeroesAction,
-// });
 
 onMounted(function x(){
     console.log("mounted");
@@ -89,8 +73,8 @@ onMounted(function x(){
                 <div class="notification is-info" v-show="message">{{ message }}</div>
             </div>
         </div>
-        <!-- <Modal :message="modalMessage" :isOpen="showModal" @handleNo="closeModal" @handleYes="deleteHero">
-    </Modal> -->
+        <Modal :message="modalMessage" :isOpen="showModal" @handleNo="closeModal" @handleYes="deleteHero">
+    </Modal>
     </div>
 </template>
 
